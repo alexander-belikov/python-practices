@@ -1,0 +1,97 @@
+\documentclass[article]{revtex4}
+% \documentclass[aps,nofootinbib,floatfix,showpacs,preprintnumbers,prd]{revtex4}
+\usepackage{listings}
+\usepackage{graphicx, epsfig, bm, amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{wasysym}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Grasping pythonic practices}
+\author{Alexander Belikov}
+\affiliation{Knowledge Lab, Computation Institute, University of Chicago, Chicago IL 60637, USA}
+
+\maketitle
+
+
+\section{Introduction}
+Python is an interpreted language with an extensive suite of libraries. It is expressive and flexible from the point of view performance tuning. Various extensions allow usage of pre-compiled code (Cython, numba, etc).
+Python is a fun language to learn. An unprecedented amount of literature and resources are dedicated to python lore is available online.
+
+\section{Development practices}
+Even if you are starting to use a language, like python, recreationally you might end developing multiple large projects. So it is good to maintain certain practices from the very beginning.
+
+
+\subsection{Virtual environments}
+While developing your own set of scripts or a library, it is useful to keep the version of external libraries fixed.
+For instance, if you are using a function {\it foo(a, b)} from library {\it meerkats} version 1.0 and in version 2.0 the signature of {\it foo()} changes to {\it foo(c, a, b)} your current code would become incompatible if {\it meerkats} were updated.
+Different projects might rely also on different version of libraries.
+In a number of cases a user simply does not have the privileges to install or change version of python system packages.
+
+There are two main ways of working with python virtual environments:
+\begin{itemize}
+    \item using {\it virtualenv} python package and {\it pip} for installing packages
+    \item Anaconda python distribution
+\end{itemize}
+
+It is preferable to use Anaconda distribution for the following reasons:
+\begin{itemize}
+    \item conda installs binary packages from its own repositories (so they are not compiled locally during install)
+    \item A set of packages with version-specific dependencies forms a graph. Fixing versions of several packages may result in a solution, where some packages would have be downgraded or upgraded. Or perhaps some of the version constraints would have to be violated, so there would not be a solution in the strict sense. Conda uses SAT solver for dependency resolution \cite{satsolver}.
+\end{itemize}
+
+\subsection{Basic conda commands}
+
+\noindent To create an enviroment $env$:
+\begin{lstlisting}[language=bash]
+$conda create --name env
+\end{lstlisting}
+
+\noindent To activate environment $env$:
+\begin{lstlisting}[language=bash]
+$source activate env
+\end{lstlisting}
+
+Morpheme $(env)$ preceding shell specifying info  (such as hostname and shell separator, e.g. \$ in case of bash) will indicate that the user is indeed in the environment
+\noindent To deactivate current environment $env$:
+\begin{lstlisting}[language=bash]
+(env) hostname:curr_dir username$
+\end{lstlisting}
+
+\noindent To deactivate current environment $env$:
+\begin{lstlisting}[language=bash]
+(env) $source deactivate
+\end{lstlisting}
+
+\noindent To list all environments:
+\begin{lstlisting}[language=bash]
+$conda info --envs
+\end{lstlisting}
+
+\noindent To update all packages:
+\begin{lstlisting}[language=bash]
+$conda update --all
+\end{lstlisting}
+
+\noindent To remove environmet $env$:
+\begin{lstlisting}[language=bash]
+$conda-env remove -n env
+\end{lstlisting}
+
+For more information on command equivalence between {\it virtualenv}-{\it pip} pair and {\it conda} please refer to \cite{cmp-venv-conda}.
+For more information on managing conda environments refer to \cite{conda}.
+
+\section{Python guides}
+A multitude of python guide are available that choose to introduce python from different angles. We mentioned Fast Lane to Python by Norm Matloff, as an example of a basic and concise introduction \cite{fastlane}.
+
+\bibliography{python_note}
+
+
+
+\end{document}
+
