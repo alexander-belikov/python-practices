@@ -12,7 +12,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Grasping pythonic practices}
+\title{Useful pythonic practices}
 \author{Alexander Belikov}
 \affiliation{Knowledge Lab, Computation Institute, University of Chicago, Chicago IL 60637, USA}
 
@@ -42,7 +42,20 @@ There are two main ways of working with python virtual environments:
 It is preferable to use Anaconda distribution for the following reasons:
 \begin{itemize}
     \item conda installs binary packages from its own repositories (so they are not compiled locally during install)
-    \item A set of packages with version-specific dependencies forms a graph. Fixing versions of several packages may result in a solution, where some packages would have be downgraded or upgraded. Or perhaps some of the version constraints would have to be violated, so there would not be a solution in the strict sense. Conda uses SAT solver for dependency resolution \cite{satsolver}.
+    \item a set of packages with version-specific dependencies forms a graph. Fixing versions of several packages may result in a solution, where some packages would have be downgraded or upgraded. Or perhaps some of the version constraints would have to be violated, so there would not be a solution in the strict sense. Conda uses SAT solver for dependency resolution \cite{satsolver}.
+\end{itemize}
+
+\subsection{Are virtual environments necessary?}
+Why would one want or need to use virtual environments? While they are not necessary for starting with python, at a certain time their use becomes almost imperative. Here we list situations where you would want to use virtual envs.
+
+\begin{itemize}
+    \item you work on a server, where you don't have admin rights (you can't install python libraries system-wide) and you want to install a specific library {\it meerkats}. (in that case you could still install anaconda in your home directory)
+
+    \item you work on a server and want a specific version of library {\it meerkats}, for example 0.3 (and 0.4 when comes out, because you want to test your scripts with most modern scripts), while the system-wide version is 0.2 and likely to remain 0.2. Quite the opposite is possible: while developing your scripts you want to be pinned to meerkats 0.3 (for obvious reasons - you want to isolate the behavior of your code from the possible different behaviors due to different version of external libraries) while your mettlesome admin keeps updating the version of {\it meerkats}.
+
+    \item you want to study the effect of running your code under two versions of the same library (and conclude that the newer version is not harmful).
+
+    \item you are in the process of developing your own library, which you would like to be available for importing 'globally' (within the environment) and place a reference to it (the so-called '.egg-link') back to the project source code directory. In that way the changes you would be making to your library would be actual to any code that imports your library.
 \end{itemize}
 
 \subsection{Basic conda commands}
