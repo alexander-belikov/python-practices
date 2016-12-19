@@ -28,6 +28,8 @@ Even if you are starting to use a language, like python, recreationally you migh
 
 
 \subsection{Virtual environments}
+\subsubsection{Intro}
+
 While developing your own set of scripts or a library, it is useful to keep the version of external libraries fixed.
 For instance, if you are using a function {\it foo(a, b)} from library {\it meerkats} version 1.0 and in version 2.0 the signature of {\it foo()} changes to {\it foo(c, a, b)} your current code would become incompatible if {\it meerkats} were updated.
 Different projects might rely also on different version of libraries.
@@ -45,7 +47,7 @@ It is preferable to use Anaconda distribution for the following reasons:
     \item a set of packages with version-specific dependencies forms a graph. Fixing versions of several packages may result in a solution, where some packages would have be downgraded or upgraded. Or perhaps some of the version constraints would have to be violated, so there would not be a solution in the strict sense. Conda uses SAT solver for dependency resolution \cite{satsolver}.
 \end{itemize}
 
-\subsection{Are virtual environments necessary?}
+\subsubsection{Are virtual environments necessary?}
 Why would one want or need to use virtual environments? While they are not necessary for starting with python, at a certain time their use becomes almost imperative. Here we list situations where you would want to use virtual envs.
 
 \begin{itemize}
@@ -58,7 +60,7 @@ Why would one want or need to use virtual environments? While they are not neces
     \item you are in the process of developing your own library, which you would like to be available for importing 'globally' (within the environment) and place a reference to it (the so-called '.egg-link') back to the project source code directory. In that way the changes you would be making to your library would be actual to any code that imports your library.
 \end{itemize}
 
-\subsection{Basic conda commands}
+\subsubsection{Basic conda commands}
 
 \noindent To create an enviroment $env$:
 \begin{lstlisting}[language=bash]
@@ -99,8 +101,32 @@ $conda-env remove -n env
 For more information on command equivalence between {\it virtualenv}-{\it pip} pair and {\it conda} please refer to \cite{cmp-venv-conda}.
 For more information on managing conda environments refer to \cite{conda}.
 
+\subsection{Interactive development}
+Interactive development implies that elementary units by which the codebase is extended can grow literally line by line, while being tested by the developer.
+Ipython is command shell that offers introspection, history and tab completion as well a sea of other features. Its modification IPython notebook offers a web-based version of ipython. As of 2014 the IPython notebook project became packaged as Jupyter.
+
+In hypothetical situation when one is developing a library and editing its code the autoreload feature of IPython notebook becomes useful. It allows to reload the prescribed python modules before executing the code typed in the IPython prompt~\cite{autoreload}.
+
 \section{Python guides}
 A multitude of python guide are available that choose to introduce python from different angles. We mentioned Fast Lane to Python by Norm Matloff, as an example of a basic and concise introduction \cite{fastlane}.
+
+\section{Pythonic concepts}
+
+While any task in Python admits multiple solutions, there exists usually a 'pythonic' solution (a concise solution that uses the expressiveness of language to encode each logical action with at most one line of code or at least the one the that is accepted by the community as 'pythonic').
+
+It helps to keep in mind that one-liners might enhances readability of the code. At the same time in some cases functions that are applied on vector-like objects of certain types (like float matrix-like objects) might be pre-compiled and pre-optimized (such is the case with numpy functions). The first on this road is to avoid loops unless absolutely necessary.
+
+Below is the list of items that constitute the core of python lore.
+
+\begin{enumerate}
+    \item data structures: lists, dicts and sets. List and dict comprehensions
+    \item generators
+    \item map, reduce, filter, lambda
+    \item function decorators
+    \item itertools and functools
+\end{enumerate}
+
+The list was compiled on the basis of a {\it wheaties} (Owein Reese) answer on stackoverflow discussions \cite{progression}.
 
 \bibliography{python_note}
 
